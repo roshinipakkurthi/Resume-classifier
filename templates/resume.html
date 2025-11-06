@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Role Classifier</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #ff5733, #ffa500);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #000080; /* Dark Blue Color */
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(5px);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 60px;
+            margin-top: -140px;
+            position: relative;
+        }
+
+        form {
+            background: rgba(255, 255, 255, 0.6);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 350px;
+            position: relative;
+            z-index: 1;
+            margin-top: 50px;
+        }
+
+        label {
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input[type="file"] {
+            font-size: 1em;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 100%;
+            text-align: center;
+        }
+
+        button {
+            background: #ffffff;
+            color: #4a90e2;
+            font-size: 1em;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #dfe9f3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.3em;
+            color: #ffffff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Job Role Classifier</h1>
+    <form id="resumeForm" action="/upload" method="POST" enctype="multipart/form-data">
+        <label for="resume">Upload Your Resume:</label>
+        <input type="file" id="resume" name="resume" accept=".pdf,.txt" required>
+        <button type="submit">Classify</button>
+    </form>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('resumeForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            
+            const formData = new FormData(this);
+            try {
+                const response = await fetch('/upload', {  
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+                console.log("📌 API Response:", data);
+
+                if (data.error) {
+                    document.getElementById('result').textContent = `Error: ${data.error}`;
+                } else {
+                    document.getElementById('result').textContent = `Predicted Role: ${data.job_role}`;
+                }
+            } catch (error) {
+                console.error("❌ Fetch Error:", error);
+                document.getElementById('result').textContent = 'An error occurred. Please try again.';
+            }
+        });
+    </script>
+</body>
+</html>

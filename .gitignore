@@ -1,0 +1,3 @@
+venv/
+*.dll
+__pycache__/
