@@ -71,3 +71,51 @@ Resume-classifier/
 ├─ resume_classifier.pkl ← saved classifier (if separate)
 ├─ tfidf_vectorizer.pkl  ← saved vectoriser
 └─ requirements.txt      ← list of Python dependencies
+
+
+## ⚙️ How It Works  
+
+### **1. Uploading the Resume**
+- The user visits the web app and uploads a `.pdf` or `.docx` resume.  
+- Flask checks if the file type is valid.  
+- The uploaded file is saved temporarily in the `/uploads` directory.
+
+---
+
+### **2. Extracting Text**
+Once uploaded, the app extracts text content:
+- For **PDF files**, it uses `pdfplumber` to read each page.  
+- For **DOCX files**, it uses `docx2txt` or `python-docx` as a fallback.  
+- All text is merged into a single string for further processing.
+
+---
+
+### **3. Cleaning and Preprocessing**
+The extracted text undergoes multiple preprocessing steps to prepare it for machine learning:
+1. Convert all text to lowercase.  
+2. Remove special characters, numbers, and URLs.  
+3. Remove common stopwords (like “the”, “is”, “and”) using NLTK.  
+4. Lemmatize each word (convert words to their base form, e.g., *“running” → “run”*).  
+5. Combine the cleaned words back into a single string.
+
+This ensures only the most meaningful words remain for classification.
+
+---
+
+### **4. Converting Text to Numbers (Vectorization)**
+Since ML models only understand numbers:
+- The cleaned text is transformed using **TF-IDF (Term Frequency–Inverse Document Frequency)**.
+- The saved file `tfidf_vectorizer.pkl` is loaded to perform this transformation.
+- TF-IDF represents how important each word is within the resume compared to others.
+
+---
+
+### **5. Predicting the Job Category**
+- The pre-trained ML model (`model.pkl`) takes the vectorized text as input.  
+- It predicts the most likely job category based on learned patterns from previous training.  
+- The model also outputs the **confidence score** (how certain it is about the prediction).  
+- The category code is converted into a human-readable label using `label_encoder.pkl`.
+
+Example output:
+Prediction: Data Science
+Confidence: 92%
