@@ -25,53 +25,7 @@ This project takes uploaded resume documents (e.g., PDF, DOCX) and predicts a jo
 5. **Static / Templates** – HTML/CSS for UI (`/templates`, `/static` folders) and upload logic (`/uploads` folder for temporary storage).  
 6. **NLP Data** – `nltk_data/corpora` used for stop-words, etc.
 
-## Installation & Setup
-### Prerequisites
-- Python 3.7+  
-- Virtual environment (recommended)
-
-### Steps
-```bash
-# Clone the repository
-git clone https://github.com/roshinipakkurthi/Resume-classifier.git
-cd Resume-classifier
-
-# Create & activate virtual env
-python3 -m venv venv
-source venv/bin/activate   # On Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Download NLTK corpora (if not already present)
-python -m nltk.downloader stopwords wordnet
-
-# Run the application
-python app.py
-
-Resume-classifier/
-│
-├─ nltk_data/            ← NLTK corpora used
-│  └─ corpora/
-│
-├─ resume/               ← sample resumes / dataset (optional)
-│
-├─ static/               ← CSS, JS, images for UI
-│
-├─ templates/            ← HTML templates for web app
-│
-├─ uploads/              ← directory to store uploaded files
-│
-├─ .gitattributes
-├─ .gitignore
-├─ README.md             ← this file
-├─ app.py                ← main application entry point
-├─ label_encoder.pkl     ← saved label encoder
-├─ model.pkl             ← saved classification model
-├─ resume_classifier.pkl ← saved classifier (if separate)
-├─ tfidf_vectorizer.pkl  ← saved vectoriser
-└─ requirements.txt      ← list of Python dependencies
-
+---
 
 ## ⚙️ How It Works  
 
