@@ -6,12 +6,6 @@ A machine learning web application to automatically classify resumes into job ca
 - [Features](#features)
 - [Architecture](#architecture)
 - [Installation & Setup](#installation--setup)
-- [Usage](#usage)
-- [Model Training](#model-training)
-- [Project Structure](#project-structure)
-- [Requirements](#requirements)
-- [Future Work](#future-work)
-- [License](#license)
 
 ## Overview
 This project takes uploaded resume documents (e.g., PDF, DOCX) and predicts a job category/class based on the content. It uses natural language processing (tokenization, vectorisation) together with a trained classification model. The app is built with a simple web UI for easy uploading and result display.
